@@ -7,7 +7,6 @@ import lombok.*;
 @Builder
 @Getter
 public class SignupResponse {
-
 	private String username;
 	private String email;
 	private String phone;

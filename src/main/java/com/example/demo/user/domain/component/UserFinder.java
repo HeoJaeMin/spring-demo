@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserFinder {
 	private final UserInfoRepository userInfoRepository;
 
-	@Transactional(readOnly = true)
 	public void validateSignupRequest(SignupRequest request) {
 		userInfoRepository
 			.findByUserName(request.getUsername())
