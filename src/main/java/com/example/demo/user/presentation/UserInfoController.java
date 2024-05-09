@@ -37,9 +37,9 @@ public class UserInfoController {
     }
 
     @PatchMapping
-    public ResponseEntity<UserResponse> modify(
+    public ResponseEntity<SignupResponse> modify(
         @RequestBody UserPatchRequest modifyRequest
     ) {
-        return null;
+        return ResponseEntity.ok(userInfoService.modifySet(modifyRequest));
     }
 }

@@ -8,6 +8,7 @@ import com.example.demo.user.domain.dto.LoginRequest;
 import com.example.demo.user.domain.dto.SignupResponse;
 import com.example.demo.user.domain.dto.UserPatchRequest;
 import com.example.demo.user.domain.dto.UserResponse;
+import com.example.demo.user.domain.entity.UserInfo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,5 +28,14 @@ public class UserInfoService {
     public UserResponse login(LoginRequest request) {
         request.validate();
         return userFinder.login(request);
+    }
+
+    public SignupResponse modifySet(UserPatchRequest request) {
+        request.validate();
+        userFinder.validateSignupRequest(request);
+        UserInfo originUser = userFinder.findByUserName(request.getUsername());
+        originUser.consumeModify(request);
+
+        return userManager.modifyUser(originUser);
     }
 }

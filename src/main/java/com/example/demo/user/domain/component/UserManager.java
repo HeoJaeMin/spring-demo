@@ -19,4 +19,9 @@ public class UserManager {
     public SignupResponse addUser(UserPatchRequest request) {
         return userInfoRepository.save(UserInfo.consumeSignUpRequest(request)).toSignupResponse();
     }
+
+    @Transactional
+    public SignupResponse modifyUser(UserInfo userInfo) {
+        return userInfoRepository.save(userInfo).toSignupResponse();
+    }
 }

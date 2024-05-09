@@ -51,4 +51,10 @@ public class UserInfo {
             .expireAt(LocalDateTime.now().plusHours(1L))
             .build();
     }
+
+    public void consumeModify(UserPatchRequest request) {
+        this.password = request.getPassword();
+        this.email = request.getEmail();
+        this.phone = request.getPhone();
+    }
 }

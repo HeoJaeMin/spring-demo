@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.user.domain.dto.LoginRequest;
 import com.example.demo.user.domain.dto.UserPatchRequest;
 import com.example.demo.user.domain.dto.UserResponse;
+import com.example.demo.user.domain.entity.UserInfo;
 import com.example.demo.user.domain.repository.UserInfoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,9 @@ public class UserFinder {
             request.getUsername(),
             request.getPassword()
         ).orElseThrow(() -> new RuntimeException("아이디 또는 비밀번호가 올바르지 않습니다.")).toSignInResponse();
+    }
+
+    public UserInfo findByUserName(String userName) {
+        return userInfoRepository.findByUserName(userName).orElseThrow();
     }
 }
