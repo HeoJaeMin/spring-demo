@@ -17,11 +17,14 @@ import lombok.RequiredArgsConstructor;
 public class UserFinder {
     private final UserInfoRepository userInfoRepository;
 
-    public void validateSignupRequest(UserPatchRequest request) {
+    public void checkUsernameUnique(UserPatchRequest request) {
         userInfoRepository.findByUserName(request.getUsername()).ifPresent(user -> {
             throw new RuntimeException("username already exists: [" + request.getUsername() + "]");
         });
 
+    }
+
+    public void checkEmailAndPhoneUnique(UserPatchRequest request) {
         userInfoRepository.findByEmail(request.getEmail()).ifPresent(user -> {
             throw new RuntimeException("email already exists: [" + request.getEmail() + "]");
         });
@@ -35,7 +38,7 @@ public class UserFinder {
         return userInfoRepository.findByUserNameAndPassword(
             request.getUsername(),
             request.getPassword()
-        ).orElseThrow(() -> new RuntimeException("아이디 또는 비밀번호가 올바르지 않습니다.")).toSignInResponse();
+        ).orElseThrow(() -> new RuntimeException("Invalid id or password")).toSignInResponse();
     }
 
     public UserInfo findByUserName(String userName) {

@@ -21,7 +21,8 @@ public class UserInfoService {
 
     public SignupResponse signup(UserPatchRequest request) {
         request.validate();
-        userFinder.validateSignupRequest(request);
+        userFinder.checkUsernameUnique(request);
+        userFinder.checkEmailAndPhoneUnique(request);
         return userManager.addUser(request);
     }
 
@@ -32,7 +33,7 @@ public class UserInfoService {
 
     public SignupResponse modifySet(UserPatchRequest request) {
         request.validate();
-        userFinder.validateSignupRequest(request);
+        userFinder.checkEmailAndPhoneUnique(request);
         UserInfo originUser = userFinder.findByUserName(request.getUsername());
         originUser.consumeModify(request);
 
